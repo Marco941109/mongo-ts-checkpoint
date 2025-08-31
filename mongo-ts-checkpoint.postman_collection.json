@@ -1,0 +1,135 @@
+{
+  "info": {
+    "name": "Mongo TS Checkpoint API",
+    "_postman_id": "abcd-1234-5678-efgh",
+    "description": "Colección para probar la API con los dominios Users, Trucks, Orders y Locations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/health"
+      }
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Marco\",\n  \"email\": \"marco@test.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": "{{baseUrl}}/api/users/register"
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"marco@test.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": "{{baseUrl}}/api/users/login"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Trucks",
+      "item": [
+        {
+          "name": "Create Truck",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plate\": \"XYZ-123\",\n  \"model\": \"Freightliner\",\n  \"capacity\": 12000\n}"
+            },
+            "url": "{{baseUrl}}/api/trucks"
+          }
+        },
+        {
+          "name": "Get Trucks",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/trucks"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Deliver electronics\",\n  \"truckId\": \"<TRUCK_ID>\",\n  \"locationId\": \"<LOCATION_ID>\"\n}"
+            },
+            "url": "{{baseUrl}}/api/orders"
+          }
+        },
+        {
+          "name": "Get Orders",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/orders"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Locations",
+      "item": [
+        {
+          "name": "Create Location",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"CDMX\",\n  \"address\": \"Av Reforma 123\"\n}"
+            },
+            "url": "{{baseUrl}}/api/locations"
+          }
+        },
+        {
+          "name": "Get Locations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/locations"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4000" },
+    { "key": "token", "value": "" }
+  ]
+}
