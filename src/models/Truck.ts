@@ -1,9 +1,22 @@
 import { Schema, model } from "mongoose";
 
-const truckSchema = new Schema({
-  plate: { type: String, required: true, unique: true },
-  model: { type: String, required: true },
-  capacity: { type: Number, required: true },
-});
+
+
+export interface ITruck extends Document {
+  user: Schema.Types.ObjectId;
+  year: string;
+  color: string;
+  plates: string;
+}
+
+const truckSchema = new Schema<ITruck>(
+  {
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    year: { type: String, required: true },
+    color: { type: String, required: true },
+    plates: { type: String, required: true, unique: true },
+  },
+  { timestamps: true }
+);
 
 export default model("Truck", truckSchema);

@@ -22,4 +22,17 @@ router.get("/", async (_req: Request, res: Response) => {
   }
 });
 
+// Stats: total de órdenes por truck
+router.get("/stats", async (_req: Request, res: Response) => {
+  try {
+    const result = await Order.aggregate([
+      { $group: { _id: "$truckId", totalOrders: { $sum: 1 } } },
+      { $sort: { totalOrders: -1 } }
+    ]);
+    res.json(result);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export default router;
